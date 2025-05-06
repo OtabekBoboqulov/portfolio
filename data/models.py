@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 
 class UserProfile(models.Model):
@@ -8,8 +9,9 @@ class UserProfile(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length=20, blank=True)
     location = models.CharField(max_length=100, blank=True)
-    profile_image = models.ImageField(upload_to='profile/', blank=True)
-    resume = models.FileField(upload_to='resume/', blank=True)
+    profile_image = CloudinaryField('profile', blank=True, resource_type='image',
+                                    folder='portfolio/profile_images')
+    resume = CloudinaryField('resume', blank=True, resource_type='raw', folder='portfolio/resumes')
     linkedin = models.URLField(blank=True)
     github = models.URLField(blank=True)
 
@@ -41,7 +43,7 @@ class Project(models.Model):
     responsibilities = models.TextField()
     project_url = models.URLField(blank=True)
     github_url = models.URLField(blank=True)
-    image = models.ImageField(upload_to='projects/', blank=True)
+    image = CloudinaryField('project', blank=True, resource_type='image', folder='portfolio/project_images')
     is_featured = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='projects')
