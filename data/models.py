@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 from cloudinary.models import CloudinaryField
 
@@ -22,18 +23,34 @@ class UserProfile(models.Model):
         verbose_name_plural = 'User Profiles'
 
 
+class Language(models.Model):
+    name = models.CharField(max_length=150)
+    icon = models.TextField()
+    color = models.CharField(max_length=10)
+    progress = models.IntegerField(default=0)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='languages')
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(progress__gte=0, progress__lte=100),
+                name='progress_range'
+            )
+        ]
+
+    def __str__(self):
+        return f'{self.user}: {self.name} - {self.progress}%'
+
+
 class Skill(models.Model):
-    Levels = (
-        ('beginner', 'Beginner'),
-        ('intermediate', 'Intermediate'),
-        ('advanced', 'Advanced'),
-    )
-    name = models.CharField(max_length=100)
-    level = models.CharField(max_length=100, choices=Levels)
+    name = models.CharField(max_length=150)
+    icon = models.TextField()
+    description = models.TextField()
+    iconColor = models.CharField(max_length=10)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='skills')
 
     def __str__(self):
-        return self.name
+        return f'{self.user}: {self.name}'
 
 
 class Project(models.Model):

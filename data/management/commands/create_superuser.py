@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 import os
 from decouple import config
 
+
 class Command(BaseCommand):
     help = 'Create a superuser non-interactively'
 
