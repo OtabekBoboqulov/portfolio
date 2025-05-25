@@ -36,3 +36,9 @@ class EducationSerializer(ModelSerializer):
     class Meta:
         model = Education
         fields = '__all__'
+
+
+class LanguageSerializer(ModelSerializer):
+    class Meta:
+        model = Language
+        fields = '__all__'
