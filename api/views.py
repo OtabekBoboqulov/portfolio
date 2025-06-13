@@ -87,3 +87,8 @@ def all_data(request):
     return Response({'profile_data': profile_serialized.data, 'skills_data': skills_serialized.data,
                      'projects_data': projects_serialized.data, 'experience_data': experiences_serialized.data,
                      'education_data': educations_serialized.data, 'language_data': languages_serialized.data})
+
+
+@api_view(['GET'])
+def check(request):
+    return Response({'status': 'ok'})
