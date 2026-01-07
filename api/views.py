@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from data.models import UserProfile, ContactMessage
 from .serializers import UserProfileSerializer, SkillSerializer, ProjectSerializer, ExperienceSerializer, \
-    EducationSerializer, LanguageSerializer
+    EducationSerializer, LanguageSerializer, CertificatesSerializer
 
 
 @api_view(['POST'])
@@ -84,9 +84,12 @@ def all_data(request):
     educations_serialized = EducationSerializer(educations, many=True)
     languages = profile.languages.all()
     languages_serialized = LanguageSerializer(languages, many=True)
+    certificates = profile.certificates.all()
+    certificates_serialized = CertificatesSerializer(certificates, many=True)
     return Response({'profile_data': profile_serialized.data, 'skills_data': skills_serialized.data,
                      'projects_data': projects_serialized.data, 'experience_data': experiences_serialized.data,
-                     'education_data': educations_serialized.data, 'language_data': languages_serialized.data})
+                     'education_data': educations_serialized.data, 'language_data': languages_serialized.data,
+                     'certificates_data': certificates_serialized})
 
 
 @api_view(['GET'])

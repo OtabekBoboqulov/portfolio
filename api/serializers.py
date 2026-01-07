@@ -20,6 +20,12 @@ class ProjectSerializer(ModelSerializer):
         fields = '__all__'
 
 
+class CertificatesSerializer(ModelSerializer):
+    class Meta:
+        model = Certificates
+        fields = '__all__'
+
+
 class ContactMessageSerializer(ModelSerializer):
     class Meta:
         model = ContactMessage
