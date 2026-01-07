@@ -69,6 +69,17 @@ class Project(models.Model):
         return self.title
 
 
+class Certificates(models.Model):
+    name = models.CharField(max_length=100)
+    year = models.DateField()
+    organization = models.CharField(max_length=100, null=True, blank=True)
+    image = CloudinaryField('certificate', resource_type='image', folder='portfolio/certificates')
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='certificates')
+
+    def __str__(self):
+        return f'{self.user}: {self.name}'
+
+
 class Experience(models.Model):
     company_name = models.CharField(max_length=150)
     position = models.CharField(max_length=150)
